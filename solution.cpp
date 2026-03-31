@@ -38,6 +38,13 @@ private:
         findDepthAndParent(node->right, depth + 1, node->val);
     }
 
+    void deleteTree(TreeNode* node) {
+        if (!node) return;
+        deleteTree(node->left);
+        deleteTree(node->right);
+        delete node;
+    }
+
     bool isCousins(int x, int y) {
         // Check if both nodes exist
         if (depth_map.find(x) == depth_map.end() ||
@@ -77,6 +84,9 @@ public:
         for (const auto& query : queries) {
             cout << (isCousins(query.first, query.second) ? 1 : 0) << endl;
         }
+
+        // Clean up memory
+        deleteTree(root);
     }
 };
 
